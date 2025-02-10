@@ -161,26 +161,21 @@ body {
 	padding: 10px;
 	color: rgba(255, 252, 245, 0.5);
 	text-transform: capitalize;
-	font-weight: 600;
+	font-weight: 300;
 	font-family: "Mulish", "Fire Sans", var(--default-fonts);
 	pointer-events: none;
 	transition-property: top, left, padding, font-size;
 	transition-duration: 0.5s;
 }
 
-.form-row input:has(required) ~ label,
-.form-row input:focus ~ label
-{
-	color: rgba(255, 252, 245, 1);
-	top: -7px;
-	left: 10px;
-	font-size: 0.7rem;
-	padding: 0 16px;
-	background-color: rgb(79, 111, 82);
+.form-row input:hover ~ label {
+	color: rgba(255, 252, 245, 0.65);
+	transition: 0.5s;
 }
 
-input[type="url"]:focus ~ label,
-input[type="url"]:not(:placeholder-shown) ~ label {
+.form-row input:not(:placeholder-shown) ~ label,
+.form-row input:focus ~ label
+{
 	color: rgba(255, 252, 245, 1);
 	top: -7px;
 	left: 10px;
@@ -192,6 +187,8 @@ input[type="url"]:not(:placeholder-shown) ~ label {
 .form-checkbox-row {
 	display: flex;
 	gap: 8px;
+	font-size: 0.9rem;
+	font-weight: 300;
 }
 
 .form-checkbox-row label {
@@ -201,9 +198,22 @@ input[type="url"]:not(:placeholder-shown) ~ label {
 .form-button {
 	width: 100px;
 	height: 43px;
+	font-size: 0.9rem;
+	font-weight: 300;
 	background: none;
 	outline: none;
 	border: 1px solid rgb(236, 227, 206);
 	border-radius: 5px;
 	color: rgb(255, 252, 245);
+	transition: 0.5s;
+}
+
+.form-button:hover {
+	background-color: rgb(236, 227, 206);
+	color: rgb(79, 111, 82);
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.form-button:active {
+	background-color: inherit;
 }
