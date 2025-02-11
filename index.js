@@ -1,5 +1,5 @@
 const myLibrary = [];
-let bookId = 0;
+let bookId = 4;
 
 function Book(id, title, author, pages, read, link) {
   this.id = id;
@@ -31,11 +31,11 @@ function displayBook(id) {
   cardImage.appendChild(cardButtons);
   cardButtons.classList.add('card-buttons');
   if (myLibrary[id].read) {
-    const eyeSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>eye-minus</title><path d="M12 4.5A11.8 11.8 0 0 0 1 12A11.8 11.8 0 0 0 12 19.5H13.1A3.8 3.8 0 0 1 13 18.5A9.9 9.9 0 0 1 13.2 16.8L12 17A5 5 0 1 1 17 12A2.8 2.8 0 0 1 16.9 12.9A5.2 5.2 0 0 1 19 12.5A5.6 5.6 0 0 1 22.3 13.5A10.1 10.1 0 0 0 23 12A11.8 11.8 0 0 0 12 4.5M12 9A3 3 0 1 0 15 12A2.9 2.9 0 0 0 12 9M15 17.5V19.5H23V17.5Z" /></svg>';
+    const eyeSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>eye-off</title><path d="M11.83,9L15,12.16C15,12.11 15,12.05 15,12A3,3 0 0,0 12,9C11.94,9 11.89,9 11.83,9M7.53,9.8L9.08,11.35C9.03,11.56 9,11.77 9,12A3,3 0 0,0 12,15C12.22,15 12.44,14.97 12.65,14.92L14.2,16.47C13.53,16.8 12.79,17 12,17A5,5 0 0,1 7,12C7,11.21 7.2,10.47 7.53,9.8M2,4.27L4.28,6.55L4.73,7C3.08,8.3 1.78,10 1,12C2.73,16.39 7,19.5 12,19.5C13.55,19.5 15.03,19.2 16.38,18.66L16.81,19.08L19.73,22L21,20.73L3.27,3M12,7A5,5 0 0,1 17,12C17,12.64 16.87,13.26 16.64,13.82L19.57,16.75C21.07,15.5 22.27,13.86 23,12C21.27,7.61 17,4.5 12,4.5C10.6,4.5 9.26,4.75 8,5.2L10.17,7.35C10.74,7.13 11.35,7 12,7Z" /></svg>';
     cardButtons.innerHTML = eyeSvg;
   }
   else {
-    const eyeSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>eye-plus</title><path d="M12,4.5C7,4.5 2.73,7.61 1,12C2.73,16.39 7,19.5 12,19.5C12.36,19.5 12.72,19.5 13.08,19.45C13.03,19.13 13,18.82 13,18.5C13,17.94 13.08,17.38 13.24,16.84C12.83,16.94 12.42,17 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7A5,5 0 0,1 17,12C17,12.29 16.97,12.59 16.92,12.88C17.58,12.63 18.29,12.5 19,12.5C20.17,12.5 21.31,12.84 22.29,13.5C22.56,13 22.8,12.5 23,12C21.27,7.61 17,4.5 12,4.5M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M18,14.5V17.5H15V19.5H18V22.5H20V19.5H23V17.5H20V14.5H18Z" /></svg>';
+    const eyeSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>eye</title><path d="M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17M12,4.5C7,4.5 2.73,7.61 1,12C2.73,16.39 7,19.5 12,19.5C17,19.5 21.27,16.39 23,12C21.27,7.61 17,4.5 12,4.5Z" /></svg>';
     cardButtons.innerHTML = eyeSvg;
   }
   const pencilSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>pencil</title><path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z"/></svg>';
@@ -69,7 +69,17 @@ form.addEventListener('submit', (e) => {
 
   addBookToLibrary(bookId, formTitle, formAuthor, formPages, formLink, formRead);
   console.table(myLibrary);
-  displayBook(bookId);
   bookId++;
+  e.target.reset();
+  document.querySelector('#name').focus();
 });
+
+addBookToLibrary(0, 'The Book Thief', 'Markus Zusak', 592, '/Users/jaknito/top/repos/projects/library/images/the-book-thief.jpg', true);
+addBookToLibrary(1, 'The Alchemist', 'Paulo Coelho', 182, '/Users/jaknito/top/repos/projects/library/images/the-alchemist.jpg', true);
+addBookToLibrary(2, 'To Kill a Mockingbird', 'Harper Lee', 323, '/Users/jaknito/top/repos/projects/library/images/to-kill-a-mockingbird.jpg', false);
+addBookToLibrary(3, 'The da Vinci Code', 'Dan Brown', 480, '/Users/jaknito/top/repos/projects/library/images/the-da-vinci-code.jpg', false);
+
+for (let i = 0; i < 4; i++) {
+  displayBook(i);
+}
 
