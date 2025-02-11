@@ -162,7 +162,7 @@ body {
 	color: rgba(255, 252, 245, 0.5);
 	text-transform: capitalize;
 	font-weight: 300;
-	font-family: "Mulish", "Fire Sans", var(--default-fonts);
+	font-family: "Mulish", "Fira Sans", var(--default-fonts);
 	pointer-events: none;
 	transition-property: top, left, padding, font-size;
 	transition-duration: 0.5s;
@@ -174,8 +174,7 @@ body {
 }
 
 .form-row input:not(:placeholder-shown) ~ label,
-.form-row input:focus ~ label
-{
+.form-row input:focus ~ label {
 	color: rgba(255, 252, 245, 1);
 	top: -7px;
 	left: 10px;
@@ -221,26 +220,63 @@ body {
 #main {
 	display: flex;
 	justify-content: center;
-	align-items: center;
-	padding: 32px;
+	padding: 64px 32px;
+	overflow: auto;
 }
 
 .cards {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, 1fr);
+	grid-template-columns: repeat(3, 1fr);
 	grid-template-rows: repeat(auto-fit, 1fr);
+	gap: 16px 48px;
 }
 
 .card .card-image {
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center center;
-	width: 175px;
-	height: 275px;
+	width: 200px;
+	height: 300px;
 	background-color: rgb(115, 144, 114);
+	position: relative;
+}
+
+.card-details {
+	text-align: center;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.card-details h4 {
+	font-family: "Mulish", "Fira Sans", var(--default-fonts);
+	font-size: 0.9rem;
+	font-weight: 600;
+}
+
+.card-details p:nth-child(2) {
+	font-size: 0.9rem;
+	font-weight: 300;
+}
+
+.card-details p:last-child {
+	font-size: 0.9rem;
+	font-weight: 300;
+}
+
+.card-details p:last-child::after {
+	content: " pages";
 }
 
 .card-buttons svg {
-	width: 25px;
-	height: 25px;
+	width: 22px;
+	height: 22px;
+	fill: rgb(58, 77, 57);
+	cursor: pointer;
+}
+
+.card-buttons {
+	display: flex;
+	justify-content: flex-end;
+	gap: 8px;
+	padding: 12px;
 }
