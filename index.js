@@ -27,6 +27,7 @@ function displayBook(id) {
   const cardImage = document.createElement('div');
   card.appendChild(cardImage);
   cardImage.classList.add('card-image');
+  cardImage.style.backgroundImage = `url(${myLibrary[id].link})`;
   const cardButtons = document.createElement('div');
   cardImage.appendChild(cardButtons);
   cardButtons.classList.add('card-buttons');
@@ -74,10 +75,10 @@ form.addEventListener('submit', (e) => {
   document.querySelector('#name').focus();
 });
 
-addBookToLibrary(0, 'The Book Thief', 'Markus Zusak', 592, '/Users/jaknito/top/repos/projects/library/images/the-book-thief.jpg', true);
-addBookToLibrary(1, 'The Alchemist', 'Paulo Coelho', 182, '/Users/jaknito/top/repos/projects/library/images/the-alchemist.jpg', true);
-addBookToLibrary(2, 'To Kill a Mockingbird', 'Harper Lee', 323, '/Users/jaknito/top/repos/projects/library/images/to-kill-a-mockingbird.jpg', false);
-addBookToLibrary(3, 'The da Vinci Code', 'Dan Brown', 480, '/Users/jaknito/top/repos/projects/library/images/the-da-vinci-code.jpg', false);
+addBookToLibrary(0, 'The Book Thief', 'Markus Zusak', 592, './images/the-book-thief.jpg', true);
+addBookToLibrary(1, 'The Alchemist', 'Paulo Coelho', 182, './images/the-alchemist.jpg', true);
+addBookToLibrary(2, 'To Kill a Mockingbird', 'Harper Lee', 323, './images/to-kill-a-mockingbird.jpg', false);
+addBookToLibrary(3, 'The da Vinci Code', 'Dan Brown', 480, './images/the-da-vinci-code.jpg', false);
 
 for (let i = 0; i < 4; i++) {
   displayBook(i);
