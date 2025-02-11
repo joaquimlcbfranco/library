@@ -89,6 +89,10 @@ body {
 	grid-template-rows: 20vh 1fr;
 }
 
+.hide {
+	display: none;
+}
+
 #header {
 	grid-row: 1;
 	grid-column: 1 / 3;
@@ -232,6 +236,9 @@ body {
 }
 
 .card .card-image {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center center;
@@ -239,6 +246,16 @@ body {
 	height: 300px;
 	background-color: rgb(115, 144, 114);
 	position: relative;
+	box-shadow: 0 0 15px rgb(0, 0, 0);
+}
+
+.card-image:hover::before {
+	content: "";
+	position: absolute;
+	background-color: rgb(0, 0, 0);
+	height: 100%;
+	width: 100%;
+	opacity: 0.5;
 }
 
 .card-details {
@@ -268,15 +285,112 @@ body {
 }
 
 .card-buttons svg {
-	width: 22px;
-	height: 22px;
-	fill: rgb(58, 77, 57);
+	width: 35px;
+	height: 35px;
+	fill: rgb(255, 252, 245);
 	cursor: pointer;
 }
 
 .card-buttons {
 	display: flex;
-	justify-content: flex-end;
-	gap: 8px;
+	justify-content: center;
+	gap: 16px;
 	padding: 12px;
+	z-index: 1;
 }
+
+#modal {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 50%;
+	height: 75%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	background-color: rgb(79, 111, 82);
+	color: rgb(255, 252, 245);
+	z-index: 2;
+	overflow: auto;
+}
+
+#modal form {
+	padding: 0 32px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 16px;
+}
+
+.modal-row {
+	position: relative;
+}
+
+.modal-row input {
+	outline: none;
+	background: none;
+	color: rgb(255, 252, 245);
+	border: 1px solid rgb(236, 227, 206);
+	border-radius: 5px;
+	padding: 10px;
+	width: 100%;
+	font-size: 0.9rem;
+	font-weight: 300;
+}
+
+.modal-row label {
+	position: absolute;
+	left: 0;
+	padding: 10px;
+	color: rgba(255, 252, 245, 0.5);
+	text-transform: capitalize;
+	font-weight: 300;
+	font-family: "Mulish", "Fira Sans", var(--default-fonts);
+	pointer-events: none;
+	transition-property: top, left, padding, font-size;
+	transition-duration: 0.5s;
+}
+
+.modal-row input:hover ~ label {
+	color: rgba(255, 252, 245, 0.65);
+	transition: 0.5s;
+}
+
+.modal-row input:not(:placeholder-shown) ~ label,
+.modal-row input:focus ~ label {
+	color: rgba(255, 252, 245, 1);
+	top: -7px;
+	left: 10px;
+	font-size: 0.7rem;
+	padding: 0 16px;
+	background-color: rgb(79, 111, 82);
+}
+
+.modal-button,
+.modal-close {
+	width: 100px;
+	height: 43px;
+	font-size: 0.9rem;
+	font-weight: 300;
+	background: none;
+	outline: none;
+	border: 1px solid rgb(236, 227, 206);
+	border-radius: 5px;
+	color: rgb(255, 252, 245);
+	transition: 0.5s;
+}
+
+.modal-button:hover,
+.modal-close:hover {
+	background-color: rgb(236, 227, 206);
+	color: rgb(79, 111, 82);
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.modal-button:active,
+.modal-close:active {
+	background-color: inherit;
+}
+
