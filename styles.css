@@ -217,3 +217,30 @@ body {
 .form-button:active {
 	background-color: inherit;
 }
+
+#main {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 32px;
+}
+
+.cards {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, 1fr);
+	grid-template-rows: repeat(auto-fit, 1fr);
+}
+
+.card .card-image {
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center center;
+	width: 175px;
+	height: 275px;
+	background-color: rgb(115, 144, 114);
+}
+
+.card-buttons svg {
+	width: 25px;
+	height: 25px;
+}
