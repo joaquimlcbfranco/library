@@ -52,6 +52,7 @@ function displayBook(id) {
 	const cardDetails = document.createElement('div');
 	card.appendChild(cardDetails);
 	cardDetails.classList.add('card-details');
+	cardDetails.setAttribute('data-id', id);
 	const movieTitle = document.createElement('h4');
 	movieTitle.textContent = myLibrary[findLibraryIndex(id)].title;
 	const movieAuthor = document.createElement('p');
@@ -95,26 +96,6 @@ function findLibraryIndex(id) {
 	return myLibrary.findIndex((book) => book.id == id)
 }
 
-// Listen for clicks on read/edit/delete buttons
-document.body.addEventListener('click', (e) => {
-	if (e.target.getAttribute('data-type') == 'edit') {
-		const editButtonId = e.target.getAttribute('data-id');
-		editBook(editButtonId);
-	}
-	else if (e.target.getAttribute('data-type') == 'delete') {
-		const deleteButtonId = e.target.getAttribute('data-id');
-		deleteBook(deleteButtonId);
-	}
-});
-
-// Remove book from the array and remove the child and subsequent children from cards container
-function deleteBook(id) {
-	const indexToRemove = findLibraryIndex(id);
-	myLibrary.splice(indexToRemove, 1);
-	const cardAtIndex = document.querySelector(`div[data-id="${id}"]`);
-	cards.removeChild(cardAtIndex);
-}
-
 // Get modal dialog element and form
 const dialog = document.querySelector('#modal');
 const dialogForm = document.querySelector('.modal-form');
@@ -125,11 +106,29 @@ const dialogPages = document.querySelector('#modal-pages');
 const dialogLink = document.querySelector('#modal-image');
 const dialogClose = document.querySelector('.modal-close');
 
+// Listen for clicks on read/edit/delete buttons
+document.body.addEventListener('click', (e) => {
+	if (e.target.getAttribute('data-type') == 'edit') {
+		const editButtonId = e.target.getAttribute('data-id');
+		editBook(editButtonId);
+	}
+	else if (e.target.getAttribute('data-type') == 'delete') {
+		const deleteButtonId = e.target.getAttribute('data-id');
+		deleteBook(deleteButtonId);
+	}
+	else if (e.target.getAttribute('data-type') == 'mark-read') {
+		const notReadButtonId = e.target.getAttribute('data-id');
+		readStatus(notReadButtonId);
+	}
+	else if (e.target.getAttribute('data-type') == 'mark-unread') {
+		const readButtonId = e.target.getAttribute('data-id');
+		readStatus(readButtonId);
+	}
+});
+
 // Receives a book's id when the edit button is clicked
 // Sets the dialog's fields to the data in the library
 function editBook(id) {
-	dialogForm.reset();
-
 	dialogTitle.value = myLibrary[findLibraryIndex(id)].title;
 	dialogAuthor.value = myLibrary[findLibraryIndex(id)].author;
 	dialogPages.value = myLibrary[findLibraryIndex(id)].pages;
@@ -137,23 +136,57 @@ function editBook(id) {
 
 	dialog.showModal();
 
-	// When form is submitted, call updateBook function
-	dialogForm.addEventListener('submit', (e) => {
-		e.preventDefault();
-
-		updateBook(id);
-	});
+	dialogForm.setAttribute('data-id', id);
 };
 
-// Sets object properties the same as the submitted form's
-function updateBook(id) {
-	myLibrary[findLibraryIndex(id)].title = dialogTitle.value;
-	myLibrary[findLibraryIndex(id)].author = dialogAuthor.value;
-	myLibrary[findLibraryIndex(id)].pages = dialogPages.value;
-	myLibrary[findLibraryIndex(id)].link = dialogLink.value;
-}
+// When form is submitted, update array values and DOM element's text content
+dialogForm.addEventListener('submit', (e) => {
+	e.preventDefault();
+
+	const currentCardIndex = +dialogForm.getAttribute('data-id')
+	myLibrary[findLibraryIndex(currentCardId)].title = dialogTitle.value;
+	myLibrary[findLibraryIndex(currentCardId)].author = dialogAuthor.value;
+	myLibrary[findLibraryIndex(currentCardId)].pages = +dialogPages.value;
+	myLibrary[findLibraryIndex(currentCardId)].link = dialogLink.value;
+
+	const cardHeader = document.querySelector(`.card-details[data-id="${currentCardIndex}"] h4`);
+	const cardAuthor = document.querySelector(`.card-details[data-id="${currentCardIndex}"] p:nth-child(2)`);
+	const cardPages = document.querySelector(`.card-details[data-id="${currentCardIndex}"] p:nth-child(3)`);
+
+	cardHeader.textContent = dialogTitle.value;
+	cardAuthor.textContent = dialogAuthor.value;
+	cardPages.textContent = +dialogPages.value;
+
+	dialog.close();
+});
 
 dialogClose.addEventListener('click', () => {
 	dialog.close();
 }
 );
+
+// Remove book from the array and remove the child and subsequent children from cards container
+function deleteBook(id) {
+	const indexToRemove = findLibraryIndex(id);
+	myLibrary.splice(indexToRemove, 1);
+	const cardAtIndex = document.querySelector(`div[data-id="${id}"]`);
+	cards.removeChild(cardAtIndex);
+}
+
+// Checks if array's object read status is true or false
+// If true, changes svg innerHTML to non read one, sets svg attribute to the opposite and updates object's read status in array
+function readStatus(id) {
+	currentSvg = document.querySelector(`.card-buttons[data-id="${id}"] svg:nth-child(1)`);
+	if (myLibrary[findLibraryIndex(id)].read) {
+		currentSvg.innerHTML = '<title>"Mark as read"</title><path d="M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17M12,4.5C7,4.5 2.73,7.61 1,12C2.73,16.39 7,19.5 12,19.5C17,19.5 21.27,16.39 23,12C21.27,7.61 17,4.5 12,4.5Z" />';
+		currentSvg.setAttribute('data-type', 'mark-read');
+		myLibrary[findLibraryIndex(id)].read = false;
+	}
+	else if (!myLibrary[findLibraryIndex(id)].read) {
+		currentSvg.innerHTML = '<title>"Mark as not read"</title><path d="M11.83,9L15,12.16C15,12.11 15,12.05 15,12A3,3 0 0,0 12,9C11.94,9 11.89,9 11.83,9M7.53,9.8L9.08,11.35C9.03,11.56 9,11.77 9,12A3,3 0 0,0 12,15C12.22,15 12.44,14.97 12.65,14.92L14.2,16.47C13.53,16.8 12.79,17 12,17A5,5 0 0,1 7,12C7,11.21 7.2,10.47 7.53,9.8M2,4.27L4.28,6.55L4.73,7C3.08,8.3 1.78,10 1,12C2.73,16.39 7,19.5 12,19.5C13.55,19.5 15.03,19.2 16.38,18.66L16.81,19.08L19.73,22L21,20.73L3.27,3M12,7A5,5 0 0,1 17,12C17,12.64 16.87,13.26 16.64,13.82L19.57,16.75C21.07,15.5 22.27,13.86 23,12C21.27,7.61 17,4.5 12,4.5C10.6,4.5 9.26,4.75 8,5.2L10.17,7.35C10.74,7.13 11.35,7 12,7Z" />';
+		currentSvg.setAttribute('data-type', 'mark-unread');
+		myLibrary[findLibraryIndex(id)].read = true;
+	}
+}
+
+const cardImages = document.querySelectorAll('.card-image')
