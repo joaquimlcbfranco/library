@@ -256,8 +256,14 @@ body {
 .card-buttons svg {
 	width: 35px;
 	height: 35px;
-	fill: rgb(255, 252, 245);
+	fill: rgb(115, 144, 114);
 	cursor: pointer;
+	transition: transform 0.5s, fill 0.5s;
+}
+
+.card-buttons svg:hover {
+	transform: translateY(-5px);
+	fill: rgb(155, 184, 154);
 }
 
 .card-buttons {
