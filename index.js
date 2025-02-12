@@ -91,29 +91,56 @@ form.addEventListener('submit', (e) => {
 const deleteButtons = document.querySelectorAll('[data-type="delete"]');
 deleteButtons.forEach((button) => {
   button.addEventListener('click', () => {
-    const buttonId = button.getAttribute('data-id');
-    deleteBook(buttonId);
+    const deleteButtonId = +button.getAttribute('data-id');
+    deleteBook(deleteButtonId);
   })
 });
+
+function findIndex(id) {
+  return myLibrary.findIndex((book) => book.id == id)
+}
 
 // Find book with a certain index in the array with key = "id"
 // Remove it from the array and remove the child from cards container
 function deleteBook(id) {
-  const indexToRemove = myLibrary.findIndex((book) => book.id = id);
+  const indexToRemove = findIndex(id);
   myLibrary.splice(indexToRemove, 1);
   const cardAtIndex = document.querySelector(`div[data-id="${id}"]`);
   cards.removeChild(cardAtIndex);
 }
 
+// Get modal dialog element and form
+const dialog = document.querySelector('#modal');
+const dialogForm = document.querySelector('.modal-form');
+// Get all dialog fields
+const dialogTitle = document.querySelector('#modal-name');
+const dialogAuthor = document.querySelector('#modal-author');
+const dialogPages = document.querySelector('#modal-pages');
+const dialogLink = document.querySelector('#modal-image');
+const dialogClose = document.querySelector('.modal-close');
+
 // Get all edit type buttons and call editBook function when clicked
 const editButtons = document.querySelectorAll('[data-type="edit"]');
 editButtons.forEach((button) => {
   button.addEventListener('click', () => {
-    const buttonId = button.getAttribute('data-id');
-    editBook(buttonId);
+    const editButtonId = +button.getAttribute('data-id');
+    console.log('data id:', editButtonId);
+    editBook(editButtonId);
   })
 });
 
 function editBook(id) {
-  
+  dialogForm.reset();
+
+  dialogTitle.value = myLibrary[findIndex(id)].title;
+  dialogAuthor.value = myLibrary[findIndex(id)].author;
+  dialogPages.value = myLibrary[findIndex(id)].pages;
+  dialogLink.value = myLibrary[findIndex(id)].link;
+
+  dialog.showModal();
+};
+
+dialogClose.addEventListener('click', () => {
+  dialog.close();
 }
+);
