@@ -253,14 +253,29 @@ body {
 	box-shadow: 0 0 15px rgb(0, 0, 0);
 }
 
-.card-image:hover::before {
+.card-buttons svg {
+	width: 35px;
+	height: 35px;
+	fill: rgb(255, 252, 245);
+	cursor: pointer;
+}
+
+.card-buttons {
+	display: flex;
+	justify-content: center;
+	gap: 16px;
+	padding: 12px;
+	z-index: 1;
+}
+
+/* .card-image:hover::before {
 	content: "";
 	position: absolute;
 	background-color: rgb(0, 0, 0);
 	height: 100%;
 	width: 100%;
 	opacity: 0.5;
-}
+} */
 
 .card-details {
 	text-align: center;
@@ -286,21 +301,6 @@ body {
 
 .card-details p:last-child::after {
 	content: " pages";
-}
-
-.card-buttons svg {
-	width: 35px;
-	height: 35px;
-	fill: rgb(255, 252, 245);
-	cursor: pointer;
-}
-
-.card-buttons {
-	display: flex;
-	justify-content: center;
-	gap: 16px;
-	padding: 12px;
-	z-index: 1;
 }
 
 #modal[open] {
