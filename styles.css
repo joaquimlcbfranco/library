@@ -78,6 +78,10 @@ input[type="number"] {
 	-moz-appearance: textfield;
 }
 
+svg path {
+	pointer-events: none;
+}
+
 body {
 	font-family: "Fira Sans", var(--default-fonts);
 	font-weight: 400;
