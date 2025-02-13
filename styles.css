@@ -288,7 +288,21 @@ input[type="checkbox"] {
 }
 
 .card-image:hover::before {
-	opacity: 0.85;
+	opacity: 0.7;
+}
+
+.notread {
+	position: relative;
+	transition: all 0.5s;
+}
+.notread::before {
+	content: "";
+	position: absolute;
+	background-color: rgb(0, 0, 0);
+	height: 100%;
+	width: 100%;
+	opacity: 0.7;
+	transition: opacity 0.5s ease;
 }
 
 .card-buttons svg {
