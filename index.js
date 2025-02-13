@@ -18,6 +18,8 @@ function addBookToLibrary(id, title, author, pages, link, read) {
 
 const cards = document.querySelector('.cards');
 
+let cardImages = document.querySelectorAll('.card-image');
+
 // When called, creates card structure with elements from book in a certain passed id
 function displayBook(id) {
 	const card = document.createElement('div');
@@ -62,6 +64,10 @@ function displayBook(id) {
 	cardDetails.appendChild(movieTitle);
 	cardDetails.appendChild(movieAuthor);
 	cardDetails.appendChild(moviePages);
+
+	cardImages = updateCardImages();
+
+	addImageListeners();
 }
 
 addBookToLibrary(0, 'The Book Thief', 'Markus Zusak', 592, './images/the-book-thief.jpg', true);
@@ -126,6 +132,13 @@ document.body.addEventListener('click', (e) => {
 	}
 });
 
+document.body.addEventListener('mouseover', (e) => {
+	if (e.target.classList.contains('card-image')) {
+		showButtons(e.target.querySelectorAll('svg'));
+	}
+});
+
+
 // Receives a book's id when the edit button is clicked
 // Sets the dialog's fields to the data in the library
 function editBook(id) {
@@ -186,4 +199,31 @@ function readStatus(id) {
 		currentSvg.setAttribute('data-type', 'mark-unread');
 		myLibrary[findLibraryIndex(id)].read = true;
 	}
+}
+
+function updateCardImages() {
+	return document.querySelectorAll('.card-image');
+}
+
+function addImageListeners() {
+	document.querySelectorAll('.card-image').forEach(card => {
+		card.addEventListener('mouseenter', () => {
+			showButtons(card.querySelectorAll('svg'));
+		});
+		card.addEventListener('mouseleave', () => {
+			hideButtons(card.querySelectorAll('svg'));
+		});
+	});
+}
+
+function showButtons(buttons) {
+	buttons.forEach((button) => {
+		button.classList.remove('hide');
+	});
+}
+
+function hideButtons(buttons) {
+	buttons.forEach((button) => {
+		button.classList.add('hide');
+	});
 }
