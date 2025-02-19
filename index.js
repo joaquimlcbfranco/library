@@ -1,13 +1,15 @@
 const myLibrary = [];
 let bookId = 4;
 
-function Book(id, title, author, pages, read, link) {
-	this.id = id;
-	this.title = title;
-	this.author = author;
-	this.pages = pages;
-	this.read = read;
-	this.link = link
+class Book {
+	constructor(id, title, author, pages, read, link) {
+		this.id = id;
+		this.title = title;
+		this.author = author;
+		this.pages = pages;
+		this.read = read;
+		this.link = link
+	}
 }
 
 function addBookToLibrary(id, title, author, pages, link, read) {
@@ -31,8 +33,7 @@ function displayBook(id) {
 	card.appendChild(cardImage);
 	cardImage.classList.add('card-image');
 	cardImage.setAttribute('data-id', id);
-	const re1 = /(http){0,1}s{0,1}(:\/\/){0,1}(www.){0,1}.*\.{1}.*/;
-	const re2 = /\.{0,1}\/{1}(.*\/)*.*\.{1}/;
+	
 	if (myLibrary[findLibraryIndex(id)].link == '') {
 		cardImage.style.backdropImag = 'linear-gradient(to right bottom,rgb(58, 77, 57) 0%,rgb(58, 77, 57) 50%,rgb(79, 111, 82) 50%,rgb(79, 111, 82) 100%)';
 	}
